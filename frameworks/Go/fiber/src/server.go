@@ -8,7 +8,6 @@ import (
 	"os"
 	"runtime"
 	"sort"
-	"strconv"
 	"sync"
 
 	"fiber/src/templates"
@@ -278,7 +277,7 @@ func RandomWorld() int {
 
 // QueriesCount :
 func QueriesCount(c *fiber.Ctx) int {
-	n, _ := strconv.Atoi(c.Query(queryparam))
+	n := c.Request().URI().QueryArgs().GetUintOrZero(queryparam)
 	if n < 1 {
 		n = 1
 	} else if n > 500 {
